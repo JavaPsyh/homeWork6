@@ -1,6 +1,6 @@
 package tasks.clone.override;
 
-public class Engine {
+public class Engine implements Cloneable{
     private String name;
     private String engineType;
 
@@ -23,6 +23,11 @@ public class Engine {
 
     public void setEngineType(String engineType) {
         this.engineType = engineType;
+    }
+
+    @Override
+    public Engine clone() {
+        return new Engine(this.getName(), this.getEngineType());
     }
 
     @Override
