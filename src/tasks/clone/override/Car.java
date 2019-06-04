@@ -1,5 +1,9 @@
 package tasks.clone.override;
 
+import sun.reflect.Reflection;
+
+import java.lang.reflect.Field;
+
 public class Car implements Cloneable {
 
     private int quantityOfWheels;
@@ -42,7 +46,8 @@ public class Car implements Cloneable {
                 "its name is " + this.getName() + "\n" +
                 "its body is " + this.getBody() + "\n" +
                 "its color is " + this.getColor() + "\n" +
-                "its engine named " + this.getEngine();
+                "its engine named " + (this.getEngine() == null ?
+                "Nothing! It is Car without engine." : this.getEngine());
     }
 
 
@@ -50,7 +55,9 @@ public class Car implements Cloneable {
     public Car clone() throws CloneNotSupportedException {
         return new Car(this.getQuantityOfWheels(),
                 this.getName(), this.getBody(), this.getColor(),
-                new Engine(this.getEngine().getName(), this.getEngine().getEngineType()));
+                (this.getEngine() != null ?
+                        new Engine(this.getEngine().getName(), this.getEngine().getEngineType()) :
+                        this.getEngine()));
     }
 
     public static void main(String[] args) {
@@ -60,10 +67,10 @@ public class Car implements Cloneable {
         Car carClone = null;
         try {
             carClone = car.clone();
-
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
+
         System.out.println(car);
         System.out.println();
         System.out.println(carClone);
@@ -77,5 +84,4 @@ public class Car implements Cloneable {
         System.out.println();
         System.out.println(carClone);
     }
-
 }
